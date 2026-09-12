@@ -15,6 +15,7 @@ struct graph
 end
 
 const graph_t = Ptr{graph}
+const clock_t = Sys.isapple() ? Culong : Sys.isfreebsd() ? Cint : Clong
 
 graph_new(n) = ccall((:graph_new, libvn_graph), graph_t, (Cuint,), n)
 graph_clear(g) = ccall((:graph_clear, libvn_graph), Cvoid, (graph_t,), g)
@@ -39,9 +40,8 @@ graph_lognormal_grg_torus(g, r, alpha) = ccall((:graph_lognormal_grg_torus, libv
 graph_clique_number(g) = ccall((:graph_clique_number, libvn_graph), Cint, (graph_t,), g)
 graph_local_complement(g, i) = ccall((:graph_local_complement, libvn_graph), Cvoid, (graph_t, Cuint), g, i)
 graph_sequential_color_repeat(g, n) = ccall((:graph_sequential_color_repeat, libvn_graph), Cint, (graph_t, Cint), g, n)
-# clock_t is a C long on the supported Linux, macOS, and Windows platforms.
-graph_chromatic_number(g, timeout) = ccall((:graph_chromatic_number, libvn_graph), Cint, (graph_t, Clong), g, timeout)
-graph_edge_chromatic_number(g, timeout) = ccall((:graph_edge_chromatic_number, libvn_graph), Cint, (graph_t, Clong), g, timeout)
+graph_chromatic_number(g, timeout) = ccall((:graph_chromatic_number, libvn_graph), Cint, (graph_t, clock_t), g, timeout)
+graph_edge_chromatic_number(g, timeout) = ccall((:graph_edge_chromatic_number, libvn_graph), Cint, (graph_t, clock_t), g, timeout)
 graph_ncolors(g) = ccall((:graph_ncolors, libvn_graph), Cint, (graph_t,), g)
 graph_check_coloring(g) = ccall((:graph_check_coloring, libvn_graph), Cint, (graph_t,), g)
 

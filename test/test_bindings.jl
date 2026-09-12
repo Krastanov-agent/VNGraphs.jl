@@ -27,10 +27,10 @@ labels = [VNGraphs.cluster(g, i) for i in Graphs.vertices(reference)]
 
 @test VNGraphs.graph_clique_number(g) == 3
 @test VNGraphs.graph_chromatic_number(g, 0) == 3
+@test VNGraphs.graph_sequential_color_repeat(g, 3) == 3
 @test VNGraphs.graph_ncolors(g) == 3
 @test VNGraphs.graph_check_coloring(g) == 1
 @test all(VNGraphs.color(g, e.src) != VNGraphs.color(g, e.dst) for e in Graphs.edges(reference))
-@test VNGraphs.graph_sequential_color_repeat(g, 3) == 3
 @test VNGraphs.graph_edge_chromatic_number(VNGraph(Graphs.cycle_graph(3)), 0) == 3
 
 # The thin C wrappers use zero-based vertex indices.

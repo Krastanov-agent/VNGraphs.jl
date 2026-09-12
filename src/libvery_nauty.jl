@@ -19,6 +19,7 @@ const clock_t = Sys.isapple() ? Culong : Sys.isfreebsd() ? Cint : Clong
 
 graph_new(n) = ccall((:graph_new, libvn_graph), graph_t, (Cuint,), n)
 graph_clear(g) = ccall((:graph_clear, libvn_graph), Cvoid, (graph_t,), g)
+graph_empty(g) = ccall((:graph_empty, libvn_graph), Cvoid, (graph_t,), g)
 graph_add_edge(g, i, j) = ccall((:graph_add_edge, libvn_graph), Cvoid, (graph_t, Cuint, Cuint), g, i, j)
 graph_del_edge(g, i, j) = ccall((:graph_del_edge, libvn_graph), Cint, (graph_t, Cuint, Cuint), g, i, j)
 graph_has_edge(g, i, j) = ccall((:graph_has_edge, libvn_graph), Cint, (graph_t, Cuint, Cuint), g, i, j)

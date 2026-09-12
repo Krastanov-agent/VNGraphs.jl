@@ -48,6 +48,8 @@ VNGraphs.graph_local_complement(g, 2)
 
 VNGraphs.graph_gnp(g, 1.0)
 @test Graphs.Graph(g) == Graphs.complete_graph(Graphs.nv(g))
+VNGraphs.graph_gnp(g, 0.0)
+@test Graphs.Graph(g) == Graphs.Graph(Graphs.nv(g))
 VNGraphs.graph_gnm(g, 5)
 @test Graphs.ne(g) == Graphs.ne(Graphs.Graph(g)) == 5
 

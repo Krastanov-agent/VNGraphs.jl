@@ -45,7 +45,7 @@ cluster(g::VNGraph,i::Integer) = GC.@preserve g unsafe_load(unsafe_load(g.ptr).l
 graph_cluster_sizes(g::VNGraph) = Lib.graph_cluster_sizes(g)
 graph_max_cluster(g::VNGraph) = Lib.graph_max_cluster(g)
 
-graph_gnp(g::VNGraph, p) = Lib.graph_gnp(g, p)
+graph_gnp(g::VNGraph, p) = iszero(p) ? Lib.graph_empty(g) : Lib.graph_gnp(g, p)
 graph_gnm(g::VNGraph, m) = Lib.graph_gnm(g, m)
 graph_grg(g::VNGraph, r) = Lib.graph_grg(g, r)
 graph_grg_torus(g::VNGraph, r) = Lib.graph_grg_torus(g, r)
